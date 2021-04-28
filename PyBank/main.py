@@ -65,4 +65,3 @@ print(f"Total: ${net_profit_total}")
 print(f"Average Change: ${average_profit_change}")
 print(f"Greatest Increase in Profits: {greatest_increase[0]} (${greatest_increase[1]})")
 print(f"Greatest Decrease in Profits: {greatest_decrease[0]} (${greatest_decrease[1]})")
-
