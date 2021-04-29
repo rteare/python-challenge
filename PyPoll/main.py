@@ -43,3 +43,17 @@ print(f"-------------------------")
 print(f"-------------------------")
 #print(f"Winner: {candidate_1}")
 print(f"-------------------------")
+
+# Export to Text File
+PyPoll_csv = os.path.join("..", "Resources", "Financial_Analysis.txt")
+
+with open(PyPoll_csv, 'w') as txt:
+
+    txt.writelines(f" \n")
+    txt.writelines(f"Financial Analysis\n")
+    txt.writelines(f"----------------------------\n")
+    txt.writelines(f"Total Months: {number_months}\n")
+    txt.writelines(f"Total: ${net_profit_total}\n")
+    txt.writelines(f"Average Change: ${average_profit_change}\n")
+    txt.writelines(f"Greatest Increase in Profits: {greatest_increase[0]} (${greatest_increase[1]})\n")
+    txt.writelines(f"Greatest Decrease in Profits: {greatest_decrease[0]} (${greatest_decrease[1]})\n")
