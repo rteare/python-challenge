@@ -2,58 +2,83 @@ import os
 import csv
 
 #Path to collect data from Resources folder
-PyPol_csv = os.path.join("..", "Resources", "election_data.csv")
-
-# List of variable
-number_votes = 0
-candidates = []
-candidates_total_votes = []
-winner_count = 0
-winner = ""
-
+PyPoll_csv = os.path.join("PyPoll", "Resources", "election_data.csv")
 
 # Reading CSV file
-with open(PyPol_csv) as csvfile:
+with open(PyPoll_csv) as csvfile:
+
     # CSV reader specifies delimiter and variable that holds contents
     csvreader = csv.reader(csvfile, delimiter=',')
-    
-    # Read the header row first
-    csv_header = next(csvreader)
-    csv_firstRow = next(csvreader)
 
-    # Read each row of data after the header
-    for votes in csvreader:
-        # Number of months
-        number_votes = number_votes + 1
-        
-        # List of candidates
-        candidates_name = votes[2]
+    # zip the csv data into tuples to better analyze
+    election_data = list(zip(*csvreader))
 
-            
-# Print out Financial Analysis
-print(f" ")
-print(f"Election Results")
-print(f"-------------------------")
-print(f"Total Votes: {number_votes}")
-print(f"-------------------------")
-#print(f" {candidate_1}: {percentage} {total_votes}")
-#print(f" {candidate_2}: {percentage} {total_votes}")
-#print(f" {candidate_3}: {percentage} {total_votes}")
-#print(f" {candidate_4}: {percentage} {total_votes}")
-print(f"-------------------------")
-#print(f"Winner: {candidate_1}")
-print(f"-------------------------")
+    # define column data starting point 
+    voter_id_column = election_data[0][1:]
+    county_column = election_data[1][1:]
+    candidate_column = election_data[2][1:]
 
-# Export to Text File
-PyPoll_csv = os.path.join("..", "Resources", "Financial_Analysis.txt")
+    # counting the amout of rows in to determin the total votes in the election
+    total_votes = len(voter_id_column)
 
-with open(PyPoll_csv, 'w') as txt:
+    # find list of candidates in the election
+    candidates = set(candidate_column)
 
-    txt.writelines(f" \n")
-    txt.writelines(f"Financial Analysis\n")
-    txt.writelines(f"----------------------------\n")
-    txt.writelines(f"Total Months: {number_months}\n")
-    txt.writelines(f"Total: ${net_profit_total}\n")
-    txt.writelines(f"Average Change: ${average_profit_change}\n")
-    txt.writelines(f"Greatest Increase in Profits: {greatest_increase[0]} (${greatest_increase[1]})\n")
-    txt.writelines(f"Greatest Decrease in Profits: {greatest_decrease[0]} (${greatest_decrease[1]})\n")
+    # define data variable for dictionary
+    data = {}
+
+    # for loop to find candidate data
+    for candidate in candidates:
+        votes = len([x for x in candidate_column if x == candidate])
+
+        # percentage of vote calculation
+        percentage_vote = 100 * votes / total_votes
+
+        # dicitionary components
+        data[votes] = (candidate, percentage_vote)
+
+        # define results by creating a list
+        results = list(data.keys())
+
+        #sort the votes
+        results.sort(reverse=True)
+
+
+    # declair the victor
+    winner_key = max(results)
+
+    # declair winner name
+    winner = data[winner_key][0]  
+               
+    # Print out Election Results
+    print(f" ")
+    print(f"Election Results")
+    print(f"-------------------------")
+    print(f"Total Votes: {total_votes}")
+    print(f"-------------------------")
+    #
+    for key in results:
+            value = data[key]
+            politician = value[0]
+            percent_votes = value[1]
+            number_votes = key
+
+            print(f"{politician}: {percent_votes:.3f}% ({number_votes})")#print(f"{politician}: {percent_votes:.3f}% ({number_votes})")
+    print(f"-------------------------")
+    print(f"Winner: {winner}")
+    print(f"-------------------------")
+
+    # Export to Text File
+    PyPoll_csv = os.path.join("PyPoll", "Resources", "Election_Results.txt")
+
+    with open(PyPoll_csv, 'w') as txt:
+
+        txt.write(f" \n")
+        txt.write(f"Election Results\n")
+        txt.write(f"----------------------------\n")
+        txt.write(f"Total Votes: {total_votes}\n")
+        txt.write(f"----------------------------\n")
+        txt.write(f"{politician}: {percent_votes:.3f}% ({number_votes})\n")
+        txt.write(f"----------------------------\n")
+        txt.write(f"Winner: {winner}\n")
+        txt.write(f"----------------------------\n")

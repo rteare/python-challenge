@@ -2,7 +2,7 @@ import os
 import csv
 
 #Path to collect data from Resources folder
-PyBank_csv = os.path.join("..", "Resources", "budget_data.csv")
+PyBank_csv = os.path.join("PyBank", "Resources", "budget_data.csv")
 
 # List of variable
 number_months = 0
@@ -67,15 +67,15 @@ print(f"Greatest Increase in Profits: {greatest_increase[0]} (${greatest_increas
 print(f"Greatest Decrease in Profits: {greatest_decrease[0]} (${greatest_decrease[1]})")
 
 # Export to Text File
-PyBank_csv = os.path.join("..", "Resources", "Financial_Analysis.txt")
+PyBank_csv = os.path.join("PyBank", "Resources", "Financial_Analysis.txt")
 
 with open(PyBank_csv, 'w') as txt:
 
-    txt.writelines(f" \n")
-    txt.writelines(f"Financial Analysis\n")
-    txt.writelines(f"----------------------------\n")
-    txt.writelines(f"Total Months: {number_months}\n")
-    txt.writelines(f"Total: ${net_profit_total}\n")
-    txt.writelines(f"Average Change: ${average_profit_change}\n")
-    txt.writelines(f"Greatest Increase in Profits: {greatest_increase[0]} (${greatest_increase[1]})\n")
-    txt.writelines(f"Greatest Decrease in Profits: {greatest_decrease[0]} (${greatest_decrease[1]})\n")
+    txt.write(f" \n")
+    txt.write(f"Financial Analysis\n")
+    txt.write(f"----------------------------\n")
+    txt.write(f"Total Months: {number_months}\n")
+    txt.write(f"Total: ${net_profit_total}\n")
+    txt.write(f"Average Change: ${average_profit_change}\n")
+    txt.write(f"Greatest Increase in Profits: {greatest_increase[0]} (${greatest_increase[1]})\n")
+    txt.write(f"Greatest Decrease in Profits: {greatest_decrease[0]} (${greatest_decrease[1]})\n")
