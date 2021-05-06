@@ -4,7 +4,7 @@ import csv
 #Path to collect data from Resources folder
 PyPoll_csv = os.path.join("PyPoll", "Resources", "election_data.csv")
 
-# List of Variables
+# List of Variables and lists
 votes = []
 canditates = []
 total_votes = 0
@@ -21,7 +21,6 @@ otooley = []
 otooley_votes = 0
 otooley_percent = 0
 
-
 # Reading CSV file
 with open(PyPoll_csv) as csvfile:
 
@@ -30,11 +29,22 @@ with open(PyPoll_csv) as csvfile:
 
     # Read the header row first
     csv_header = next(csvreader)
-    
-    # Total votes
+    total_votes += 1
+    khan_votes += 1
+    correy_votes += 1
+    li_votes += 1
+    otooley_votes += 1
+           
+    # Read each row of data after the header
     for vote in csvreader:
+
+        # Create list of first column in CSV
         votes.append(vote[0])
+
+        # Create list of third column in CSV
         canditates.append(vote[2])
+        
+        # Total votes using length of vote list
         total_votes = len(votes)
 
     # Total votes per candidate

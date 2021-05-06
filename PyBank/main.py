@@ -20,6 +20,7 @@ greatest_decrease = ["", 9999999999999999]
 
 # Reading CSV file
 with open(PyBank_csv) as csvfile:
+
     # CSV reader specifies delimiter and variable that holds contents
     csvreader = csv.reader(csvfile, delimiter=',')
     
@@ -32,6 +33,7 @@ with open(PyBank_csv) as csvfile:
 
     # Read each row of data after the header
     for month in csvreader:
+        
         # Number of months
         number_months = number_months + 1
         
